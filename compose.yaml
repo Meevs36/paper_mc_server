@@ -1,0 +1,38 @@
+# Author -- meevs
+# Creation Date -- 2023-10-30
+# File Name -- compose.yaml
+# Notes --
+
+version: "2.4"
+services:
+  latest:
+    image: "${IMAGE_NAME}"
+    container_name: "${CONTAINER_NAME}"
+    build:
+      context: "./"
+      args:
+        USER: "paper"
+        BUILD_DIR: "/paper_mc_build"
+        INSTALL_DIR: "${INSTALL_DIR}"
+        MC_VERSION: "${MC_VERSION}"
+        CONFIG_DIR: "${CONFIG_DIR}"
+        SERVER_CONFIG: "${SERVER_CONFIG}"
+        JAVA_VERSION: "${JAVA_VERSION}"
+    environment:
+      MC_EULA: "${MC_EULA}"
+      MIN_RAM: "${MIN_RAM}"
+      MAX_RAM: "${MAX_RAM}"
+    stdin_open: "true"
+    tty: "true"
+    ports:
+      - "24454:24454/udp" # This is for "simple voice chat" plugin ref. https://www.spigotmc.org/resources/simple-voice-chat.93738/ and https://modrepo.de/minecraft/voicechat/wiki/server_setup_self_hosted
+      - "25565:25565/tcp"
+      - "25565:25565/udp"
+    volumes:
+      - type: "volume"
+        source: "data"
+        target: "/home/paper/server/"
+
+# Volume 
+volumes:
+  data: {}

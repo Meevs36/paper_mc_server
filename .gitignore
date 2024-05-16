@@ -1,0 +1,6 @@
+# Vim files
+*.swp
+
+# Emacs files
+*~
+\#*\#
